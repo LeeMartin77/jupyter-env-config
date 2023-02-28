@@ -35,8 +35,10 @@ jobs:
 
           podman images
 
-      - name: Push Version
-        run: |
-          podman manifest push \
-            ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
-            ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
+      - name: Push
+        run: podman push ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
+      # - name: Push Version
+      #   run: |
+      #     podman manifest push \
+      #       ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
+      #       ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
