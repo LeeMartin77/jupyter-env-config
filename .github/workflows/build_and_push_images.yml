@@ -1,0 +1,39 @@
+name: Build Matrix of Images
+
+on:
+  push:
+    - main
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    strategy:
+      matrix:
+        image_type: [minimal-notebook, scipy-notebook]
+        image_tag: [latest, lab-3.6.1]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to GHCR
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build the Container image
+        working-directory: .
+        run: |
+          platarch=linux/arm64/v8,linux/amd64
+          podman build \
+            --platform=$platarch \
+            --manifest \
+            --build-arg IMAGE_TYPE=${{ matrix.image_type }} \
+            --build-arg IMAGE_TAG=${{ matrix.image_tag }} \
+            --tag ghcr.io/leemartin77/${{ matrix.image_type }}:${{ matrix.image_tag }} .
+
+      - name: Push Version
+        if: ${{ inputs.PUSH }}
+        run: podman manifest push \
+          ghcr.io/leemartin77/${{ matrix.image_type }}:${{ matrix.image_tag }} \
+          ghcr.io/leemartin77/${{ matrix.image_type }}:${{ matrix.image_tag }}
