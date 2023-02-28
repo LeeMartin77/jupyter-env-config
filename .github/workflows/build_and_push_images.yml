@@ -35,5 +35,5 @@ jobs:
 
       - name: Push Version
         run: podman manifest push \
-          jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
+          docker://jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
           docker://ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
