@@ -39,4 +39,4 @@ jobs:
         run: |
           podman manifest push \
             ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
-            docker://ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
+            ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
