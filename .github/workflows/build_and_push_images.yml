@@ -34,10 +34,11 @@ jobs:
           platarch=linux/arm64/v8,linux/amd64
           docker buildx build \
             --platform=$platarch \
+            --load \
             --tag ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
             --build-arg IMAGE_TYPE=${{ matrix.image_type }} \
             --build-arg IMAGE_TAG=${{ matrix.image_tag }} \
             .
 
       - name: Push Version
-        run: docker push ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
+        run: docker manifest push ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
