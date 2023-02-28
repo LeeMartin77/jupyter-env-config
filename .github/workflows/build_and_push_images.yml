@@ -11,14 +11,14 @@ jobs:
     strategy:
       matrix:
         image_type: [minimal-notebook, scipy-notebook]
-        image_tag: [latest, lab-3.6.1]
+        image_tag: [lab-3.6.1]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-        
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -36,12 +36,12 @@ jobs:
           docker buildx build \
             --platform=$platarch \
             --push \
-            --tag ghcr.io/leemartin77/jupyter-env-config-${{ matrix.image_type }}:${{ matrix.image_tag }} \
+            --tag ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
             --build-arg IMAGE_TYPE=${{ matrix.image_type }} \
             --build-arg IMAGE_TAG=${{ matrix.image_tag }} \
             .
 
       - name: Push Version
         run: docker manifest push \
-          ghcr.io/leemartin77/jupyter-env-config-${{ matrix.image_type }}:${{ matrix.image_tag }} \
-          ghcr.io/leemartin77/jupyter-env-config-${{ matrix.image_type }}:${{ matrix.image_tag }}
+          ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
+          ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
