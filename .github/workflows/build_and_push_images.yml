@@ -40,6 +40,4 @@ jobs:
             .
 
       - name: Push Version
-        run: docker manifest push \
-          ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
-          ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
+        run: docker manifest push ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
