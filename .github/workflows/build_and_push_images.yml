@@ -28,10 +28,10 @@ jobs:
           platarch=linux/arm64/v8,linux/amd64
           podman build \
             --platform=$platarch \
-            --manifest \
+            --manifest=ghcr.io/leemartin77/${{ matrix.image_type }}:${{ matrix.image_tag }}\
             --build-arg IMAGE_TYPE=${{ matrix.image_type }} \
             --build-arg IMAGE_TAG=${{ matrix.image_tag }} \
-            --tag ghcr.io/leemartin77/${{ matrix.image_type }}:${{ matrix.image_tag }} .
+            .
 
       - name: Push Version
         if: ${{ inputs.PUSH }}
