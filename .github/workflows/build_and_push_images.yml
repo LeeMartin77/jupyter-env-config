@@ -28,6 +28,7 @@ jobs:
           platarch=linux/arm64/v8,linux/amd64
           podman build \
             --platform=$platarch \
+            --format=docker \
             --build-arg IMAGE_TYPE=${{ matrix.image_type }} \
             --build-arg IMAGE_TAG=${{ matrix.image_tag }} \
             --manifest ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} .
@@ -35,4 +36,4 @@ jobs:
       - name: Push Version
         run: podman manifest push \
           ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }} \
-          ghcr.io/leemartin77/openfooddiary:${{ matrix.image_type }}-${{ matrix.image_tag }}
+          ghcr.io/leemartin77/jupyter-env-config:${{ matrix.image_type }}-${{ matrix.image_tag }}
